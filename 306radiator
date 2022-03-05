@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+## 306
+## File description:
+## radiator
+##
+
+import sys
+import csv
+from math import *
+from numpy import *
+
+def help():
+    if len(sys.argv) == 2:
+        if sys.argv[1] == "-h" or sys.argv[1] == "--help":
+            print("USAGE")
+            print("\t./306radiator n ir jr [i j]\n")
+            print("DESCRIPTION")
+            print("\tn\t\tsize of the room")
+            print("\t(ir, jr)\tcoordinates of the radiator")
+            print("\t(i, j)\t\tcoordinates of a point in the room")
+            exit(0)
+
+
+def rigor():
+    if len(sys.argv) > 6:
+        exit(84)
+    if len(sys.argv) < 4:
+        exit(84)
+    if len(sys.argv) == 5:
+        exit(84)
+
+
+def printA(A):
+    i = 0
+    while i < len(A[0]):
+        j = 0
+        while j < len(A[0]):
+            print(A[i][j], end="\t")
+            j += 1
+        print()
+        i += 1
+
+def transformA(A, size):
+    i = 0
+    while i <= size:
+        j = 0
+        while j <= size:
+            if i == j:
+                A[i][j] = 1
+            j += 1
+        i += 1
+    i = size**2 - 1
+    while i >= (size**2-1)-size:
+        j = size**2 - 1
+        while j >= (size**2-1)-size:
+            if i == j:
+                A[i][j] = 1
+            j -= 1
+        i -= 1
+    return A
+
+def radiator():
+    try:
+        size = int(sys.argv[1])
+    except:
+        exit(84)
+    A = [[0 for i in range(size**2)] for j in range(size**2)]
+    A = transformA(A, size)
+    printA(A)
+
+def main():
+    help()
+    rigor()
+    radiator()
+
+if __name__ == "__main__":
+    main()
